@@ -6556,12 +6556,11 @@ static int parse_dt(struct device *dev, struct fts_hw_platform_data *bdata)
   * to the linux input subsystem etc.
   */
 #ifdef I2C_INTERFACE
-static int fts_probe(struct i2c_client *client, const struct i2c_device_id *idp)
-{
+static int fts_probe(struct i2c_client *client)
 #else
 static int fts_probe(struct spi_device *client)
-{
 #endif
+{
 
 	struct fts_ts_info *info = NULL;
 	int error = 0;
@@ -7167,7 +7166,7 @@ static struct i2c_driver fts_i2c_driver = {
 		.pm		= &fts_pm_ops,
 #endif
 	},
-	.probe			= fts_probe,
+	.probe_new		= fts_probe,
 	.remove			= fts_remove,
 	.id_table		= fts_device_id,
 };
